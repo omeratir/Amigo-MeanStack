@@ -98,11 +98,26 @@ export class HomeComponent implements OnInit {
     for (const city of cities) {
       this.latitude = +city.lat;
       this.longtitude = +city.lng;
-      this.coordinates.push({cityname: city.city , lat : this.latitude , lng: this.longtitude});
+      this.temp = {cityname: city.city , lat : this.latitude , lng: this.longtitude};
+      this.coordinates.push(this.temp);
     }
-    // this.getWeatherData();
     return true;
   }
+
+    // tslint:disable-next-line: member-ordering
+    temp: CityCoordinates;
+
+    // setCitiesArray(cities: City[]) {
+    //   for (const city of cities) {
+    //     this.latitude = +city.lat;
+    //     this.longtitude = +city.lng;
+    //     this.temp = {cityname: city.city.charAt(0).toLowerCase() , lat : this.latitude , lng: this.longtitude};
+    //     // console.log('temp city = ' + this.temp.cityname);
+    //     this.coordinates.push(this.temp);
+    //     // console.log('coordinat = ' + this.coordinates.pop().cityname);
+    //   }
+    //   return true;
+    // }
 
   getWeatherData() {
     this.lastSearchChar = localStorage.getItem('lastSearchChar');
@@ -116,6 +131,10 @@ export class HomeComponent implements OnInit {
         return true;
       }
     }
+        // tslint:disable-next-line: max-line-length
+        fetch('http://api.openweathermap.org/data/2.5/weather?lat=31.968910&lon=34.770729&appid=e74655b6a29dde2a92d858c3c0334e95')
+        .then(response => response.json())
+        .then(data => {this.setWeatherData(data); } );
     return true;
   }
 

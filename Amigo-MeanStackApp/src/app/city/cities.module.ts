@@ -8,10 +8,13 @@ import { CityListComponent } from './city-list/city-list.component';
 import { AngularMaterialModule } from '../angular-material.module';
 
 import {MatGridListModule} from '@angular/material/grid-list';
+import { SearchCityPipe } from './city-list/searchcity.pipe';
+import { SearchLatPipe } from './city-list/searchlat.pipe';
+import { SearchLngPipe } from './city-list/searchlng.pipe';
 
 
 @NgModule({
-  declarations: [CityCreateComponent, CityListComponent],
+  declarations: [CityCreateComponent, CityListComponent, SearchCityPipe, SearchLatPipe, SearchLngPipe],
   imports: [
     CommonModule,
     ReactiveFormsModule,

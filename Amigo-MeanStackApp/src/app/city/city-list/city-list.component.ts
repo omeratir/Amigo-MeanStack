@@ -13,6 +13,15 @@ import { AuthService } from '../../auth/auth.service';
 })
 export class CityListComponent implements OnInit, OnDestroy {
 
+  @ViewChild('searchCity', {static: false}) searchCityInput: any;
+  city = '';
+
+  @ViewChild('searchLat', {static: false}) searchLatInput: any;
+  lat = '';
+
+  @ViewChild('searchLng', {static: false}) searchLngInput: any;
+  lng = '';
+
   cities: City[] = [
 
   ];
@@ -72,5 +81,20 @@ export class CityListComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.citiesSub.unsubscribe();
     this.authStatusSub.unsubscribe();
+  }
+
+  onTextChangedCity() {
+    this.city = this.searchCityInput.nativeElement.value;
+    this.city = this.city.toLowerCase();
+  }
+
+  onTextChangedLat() {
+    this.lat = this.searchLatInput.nativeElement.value;
+    this.lat = this.lat.toLowerCase();
+  }
+
+  onTextChangedLng() {
+    this.lng = this.searchLngInput.nativeElement.value;
+    this.lng = this.lng.toLowerCase();
   }
 }
