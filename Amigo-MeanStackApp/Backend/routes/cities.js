@@ -13,6 +13,8 @@ router.put("/:id", checkAuth, extractFile, CityController.updateCity);
 
 router.get("", CityController.getCities);
 
+router.get("all", CityController.getAllCities);
+
 router.get("/:id", CityController.getCity);
 
 router.delete("/:id", checkAuth, CityController.deleteCity);

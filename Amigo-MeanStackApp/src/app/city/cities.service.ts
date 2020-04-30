@@ -47,6 +47,36 @@ export class CitiesService {
       });
   }
 
+  getAllCities() {
+    this.http
+      .get<{ message: string; cities: any; maxCities: number }>(
+        BACKEND_URL + 'all'
+      )
+      .pipe(
+        map(cityData => {
+          return {
+            cities: cityData.cities.map(city => {
+              return {
+                city: city.city,
+                lat: city.lat,
+                lng: city.lng,
+                id: city._id,
+                creator: city.creator
+              };
+            }),
+            maxCities: cityData.maxCities
+          };
+        })
+      );
+      // .subscribe(transformedCityData => {
+      //   this.cities = transformedCityData.cities;
+      //   this.citiesUpdated.next({
+      //     cities: [...this.cities],
+      //     cityCount: transformedCityData.maxCities
+      //   });
+      // });
+  }
+
   getCityUpdateListener() {
     return this.citiesUpdated.asObservable();
   }

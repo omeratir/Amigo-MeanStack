@@ -11,6 +11,12 @@ interface CityCoordinates {
   lng: number;
 }
 
+interface Coordinats {
+  cityname: string;
+  lat: string;
+  lng: string;
+}
+
 @Component({
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
@@ -83,17 +89,34 @@ export class HomeComponent implements OnInit {
   lastSearchChar: string;
   cityFirstChar: string;
 
+  latitude = 0;
+  longtitude = 0;
+
+  coor: Coordinats[] = [];
+
+  setCitiesArray(cities: City[]) {
+    for (const city of cities) {
+      this.latitude = +city.lat;
+      this.longtitude = +city.lng;
+      this.coordinates.push({cityname: city.city , lat : this.latitude , lng: this.longtitude});
+    }
+    // this.getWeatherData();
+    return true;
+  }
+
   getWeatherData() {
     this.lastSearchChar = localStorage.getItem('lastSearchChar');
     for (const city of this.coordinates) {
       if (city.cityname === this.lastSearchChar) {
         console.log('cityname : ' + city.cityname);
+        // tslint:disable-next-line: max-line-length
         fetch('http://api.openweathermap.org/data/2.5/weather?lat=' + city.lat + '&lon=' + city.lng + '&appid=d42bddd01fb9b492a789c7897bec9409')
         .then(response => response.json())
         .then(data => {this.setWeatherData(data); } );
         return true;
       }
     }
+    return true;
   }
 
   // getWeatherDataByCity(cities: City[]) {
@@ -101,6 +124,7 @@ export class HomeComponent implements OnInit {
   //   for (const city of this.cities) {
   //     this.cityFirstChar = city.city.charAt(0).toLowerCase();
   //     if (this.cityFirstChar === this.lastSearchChar) {
+  // tslint:disable-next-line: max-line-length
   //       fetch('http://api.openweathermap.org/data/2.5/weather?lat=' + city.lat + '&lon=' + city.lng + '&appid=d42bddd01fb9b492a789c7897bec9409')
   //       .then(response => response.json())
   //       .then(data => {this.setWeatherData(data); } );

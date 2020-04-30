@@ -106,3 +106,25 @@ exports.deleteCity = (req, res, next) => {
       });
     });
 };
+
+
+exports.getAllCities = (req, res, next) => {
+  const cityQuery = City.find();
+  cityQuery
+    .then(documents => {
+      fetchedCities = documents;
+      return City.count();
+    })
+    .then(count => {
+      res.status(200).json({
+        message: "City fetched successfully!",
+        cities: fetchedCities,
+        maxCities: count
+      });
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: "Fetching cities failed!"
+      });
+    });
+};

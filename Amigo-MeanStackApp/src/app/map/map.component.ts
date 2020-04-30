@@ -94,6 +94,13 @@ export class MapComponent implements OnInit {
         this.posts = postData.posts;
       });
 
+    // this.citiesService.getAllCities();
+    // this.citiesSub = this.citiesService
+    //       .getCityUpdateListener()
+    //       .subscribe((cityDate: { cities: City[]; cityCount: number }) => {
+    //         this.cities = cityDate.cities;
+    //       });
+
     this.citiesService.getCities(this.citiesPerPage, this.currentPage);
     this.citiesSub = this.citiesService
         .getCityUpdateListener()
