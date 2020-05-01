@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { Post } from '../post.model';
 import { PostsService } from '../posts.service';
 import { AuthService } from '../../auth/auth.service';
+import { identifierModuleUrl } from '@angular/compiler';
 
 @Component({
   selector: 'app-post-list',
@@ -36,6 +37,28 @@ export class PostListComponent implements OnInit, OnDestroy {
   userId: string;
   private postsSub: Subscription;
   private authStatusSub: Subscription;
+
+  lastChar = '';
+  flag = true;
+
+  // tslint:disable-next-line: variable-name
+  post_temp_title: string;
+  // tslint:disable-next-line: variable-name
+  post_temp_city: string;
+  // tslint:disable-next-line: variable-name
+  post_temp_content: string;
+
+  checkPostCity(posts: Post[]) {
+      this.lastChar = localStorage.getItem('lastSearchChar');
+      for (const post of posts) {
+        if (post.city.charAt(0).toLowerCase() === this.lastChar) {
+          this.post_temp_title = post.title;
+          this.post_temp_city = post.city;
+          this.post_temp_content = post.content;
+        }
+    }
+      return true;
+  }
 
   constructor(
     public postsService: PostsService,

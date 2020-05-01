@@ -2,6 +2,28 @@
 
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 
+<div *ngIf="userIsAuthenticated">
+    <div *ngIf="checkPostCity(posts)">
+      <h1> Maybe this post could interest you? </h1>
+      <table>
+        <tr>
+          <td>
+            <div>
+              <h1 style="font-weight: bold; font-family: cursive;">{{ post_temp_title }}</h1>
+              <span style="font-family: cursive;">{{ post_temp_city }}</span>
+              <p style="font-family: cursive;">{{ post_temp_content }}</p>
+            </div>
+          </td>
+      </tr>
+      </table>
+    </div>
+    <br>
+<br>
+<br>
+<br>
+</div>
+
+
 <mat-grid-list cols="3" rowHeight="10:1">
   <mat-grid-tile>
 <input matInput #search (keyup)="onTextChangedTitle()" type="text" placeholder="Search By Title" id="searchtitle"/>

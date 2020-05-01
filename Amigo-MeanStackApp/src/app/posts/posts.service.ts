@@ -115,7 +115,7 @@ export class PostsService {
   }
 
   getGroupBy() {
-    return this.http.get<{ docs: any[] }>(BACKEND_URL + 'groupby');
+    return this.http.get<{ posts: Post[] }>(BACKEND_URL + 'groupby');
   }
 
 }

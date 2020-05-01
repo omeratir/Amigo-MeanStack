@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterContentInit, AfterContentChecked } from '@angular/core';
 import { Post } from '../posts/post.model';
 import { Subscription, of } from 'rxjs';
 import { PostsService } from '../posts/posts.service';
@@ -23,7 +23,7 @@ interface Coordinats {
 })
 
 
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit , AfterContentInit , AfterContentChecked {
   title = 'angular-image-viewer';
   images = '/PictuesStyle/amigohomepage.jpeg';
 
@@ -94,11 +94,11 @@ export class HomeComponent implements OnInit {
 
   coor: Coordinats[] = [];
 
-  setCitiesArray(cities: City[]) {
-    for (const city of cities) {
+  setCitiesArray() {
+    for (const city of this.cities) {
       this.latitude = +city.lat;
       this.longtitude = +city.lng;
-      this.temp = {cityname: city.city , lat : this.latitude , lng: this.longtitude};
+      this.temp = {cityname: city.city.charAt(0).toLowerCase() , lat : this.latitude , lng: this.longtitude};
       this.coordinates.push(this.temp);
     }
     return true;
@@ -132,7 +132,7 @@ export class HomeComponent implements OnInit {
       }
     }
         // tslint:disable-next-line: max-line-length
-        fetch('http://api.openweathermap.org/data/2.5/weather?lat=31.968910&lon=34.770729&appid=e74655b6a29dde2a92d858c3c0334e95')
+    fetch('http://api.openweathermap.org/data/2.5/weather?lat=31.968910&lon=34.770729&appid=e74655b6a29dde2a92d858c3c0334e95')
         .then(response => response.json())
         .then(data => {this.setWeatherData(data); } );
     return true;
@@ -193,6 +193,15 @@ export class HomeComponent implements OnInit {
     // Muted Video
     document.getElementsByTagName('video')[0].muted = true;
 
+  }
+
+  ngAfterContentInit(): void {
+    console.log('ng after content init');
+
+  }
+
+  ngAfterContentChecked(): void {
+    this.setCitiesArray();
   }
 
   // Pie Functions

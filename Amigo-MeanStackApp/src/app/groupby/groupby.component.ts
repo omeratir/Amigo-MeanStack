@@ -16,7 +16,6 @@ constructor(postsService: PostsService) {}
 
   ngOnInit(): void {
     this.posts = this.postsService.getGroupBy();
-    console.log(this.posts);
   }
 
 }
