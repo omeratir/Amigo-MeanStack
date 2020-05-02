@@ -119,8 +119,26 @@ exports.deletePost = (req, res, next) => {
     });
 };
 
-//group by of the posts title to d3 graph
+// group by of the posts title to d3 graph
 exports.getGroupByTitle = (req, res, next) => {
+  // let fetchedPosts;
+  // const postQuery = Post.aggregate([{
+  //   "$group": {
+  //     _id: "$title",
+  //     count: {
+  //       $sum: 1
+  //     }
+  //   }
+  // }]).then(posts => {
+  //   fetchedPosts = posts;
+  // }).then(count => {
+  //   res.status(200).json({
+  //     message: "Posts fetched successfully!",
+  //     posts: fetchedPosts
+  //   });
+  // });
+
+
   Post.aggregate([{
     "$group": {
       _id: "$title",
@@ -128,7 +146,29 @@ exports.getGroupByTitle = (req, res, next) => {
         $sum: 1
       }
     }
-  }]).then(docs => {
-    return res.status(200).json({ docs });
+  }]).then(posts => {
+    res.status(200).json(posts);
   })
 };
+
+exports.getAllPosts = (req, res, next) => {
+  const postQuery = Post.find();
+  let fetchedPosts;
+  postQuery
+    .then(documents => {
+      fetchedPosts = documents;
+      res.status(200).json(fetchedPosts);
+    });
+    // .then(count => {
+    //   res.status(200).json({
+    //     message: "All Posts fetched successfully!",
+    //     posts: fetchedPosts,
+    //     maxPosts: count
+    //   });
+    // })
+    // .catch(error => {
+    //   res.status(500).json({
+    //     message: "Fetching Posts failed!"
+    //   });
+    // });
+  }

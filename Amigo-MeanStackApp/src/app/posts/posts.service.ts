@@ -118,4 +118,18 @@ export class PostsService {
     return this.http.get<{ posts: Post[] }>(BACKEND_URL + 'groupby');
   }
 
+  getAllPosts() {
+    this.http
+      .get<{ posts: any; maxPosts: number }>(
+        BACKEND_URL + 'all'
+      ).subscribe(transformedPostData => {
+        this.posts = transformedPostData.posts;
+        this.postsUpdated.next({
+          posts: [...this.posts],
+          postCount: transformedPostData.maxPosts
+        });
+      });
+  }
+
+
 }

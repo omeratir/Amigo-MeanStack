@@ -1,3 +1,15 @@
-<html>
-  <h1>Group BY title </h1>
-</html>
+<!-- <div *ngIf='show'>
+  <h1 class="m-auto">The amount of posts for each title:</h1>
+  <svg appPiechart [data]="data"></svg>
+</div>
+<div *ngIf='!show'>
+  <h1 class="m-auto">There are no Posts</h1>
+</div> -->
+
+<h1>hello</h1>
+
+<div *ngFor="let post of posts">
+{{ post.title }}
+</div>
+
+<svg appPiechart [data]="data"></svg>

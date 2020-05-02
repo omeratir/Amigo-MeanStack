@@ -19,4 +19,6 @@ router.delete("/:id", checkAuth, PostController.deletePost);
 
 router.get("/groupby", PostController.getGroupByTitle);
 
+router.get("/all", PostController.getAllPosts);
+
 module.exports = router;
