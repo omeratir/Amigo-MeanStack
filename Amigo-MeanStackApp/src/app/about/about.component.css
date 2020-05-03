@@ -1,6 +1,6 @@
 @font-face {
   font-family: SansationLight;
-  src: url(/src/assets/fonts/SansationLight.woff);
+  src: url(/src/assets/fonts/SansationLight.woff) format(woff);
 }
 
 .about

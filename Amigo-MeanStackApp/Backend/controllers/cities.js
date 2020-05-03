@@ -27,6 +27,7 @@ exports.createCity = (req, res, next) => {
 
 exports.updateCity = (req, res, next) => {
   const city = new City({
+    _id: req.body.id,
     city: req.body.city,
     lat: req.body.lat,
     lng: req.body.lng,

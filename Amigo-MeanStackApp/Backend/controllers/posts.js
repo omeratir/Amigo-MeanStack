@@ -120,7 +120,7 @@ exports.deletePost = (req, res, next) => {
 };
 
 // group by of the posts title to d3 graph
-exports.getGroupByTitle = (req, res, next) => {
+exports.getGroupByCity = (req, res, next) => {
   // let fetchedPosts;
   // const postQuery = Post.aggregate([{
   //   "$group": {
@@ -141,7 +141,7 @@ exports.getGroupByTitle = (req, res, next) => {
 
   Post.aggregate([{
     "$group": {
-      _id: "$title",
+      _id: "$city",
       count: {
         $sum: 1
       }

@@ -17,7 +17,7 @@ router.get("/:id", PostController.getPost);
 
 router.delete("/:id", checkAuth, PostController.deletePost);
 
-router.get("/groupby", PostController.getGroupByTitle);
+router.get("/groupby", PostController.getGroupByCity);
 
 router.get("/all", PostController.getAllPosts);
 

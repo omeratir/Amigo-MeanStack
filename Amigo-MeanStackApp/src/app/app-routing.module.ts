@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'postcreate', component: PostCreateComponent, canActivate: [AuthGuard] },
   { path: 'citycreate', component: CityCreateComponent, canActivate: [AuthGuard] },
   { path: 'edit/:postId', component: PostCreateComponent, canActivate: [AuthGuard] },
-  { path: 'cityedit/:placeId', component: CityCreateComponent, canActivate: [AuthGuard] },
+  { path: 'cityedit/:cityId', component: CityCreateComponent, canActivate: [AuthGuard] },
   { path: 'auth', loadChildren: './auth/auth.module#AuthModule'},
   { path: 'map', component: MapComponent},
   { path: 'chat', component: ChatComponent},
