@@ -119,36 +119,24 @@ exports.deletePost = (req, res, next) => {
     });
 };
 
-// group by of the posts title to d3 graph
 exports.getGroupByCity = (req, res, next) => {
-  // let fetchedPosts;
-  // const postQuery = Post.aggregate([{
-  //   "$group": {
-  //     _id: "$title",
-  //     count: {
-  //       $sum: 1
-  //     }
-  //   }
-  // }]).then(posts => {
-  //   fetchedPosts = posts;
-  // }).then(count => {
-  //   res.status(200).json({
-  //     message: "Posts fetched successfully!",
-  //     posts: fetchedPosts
-  //   });
-  // });
-
-
-  Post.aggregate([{
+  let fetchedPosts;
+  const postQuery = Post.aggregate([{
     "$group": {
       _id: "$city",
       count: {
         $sum: 1
       }
     }
-  }]).then(posts => {
-    res.status(200).json(posts);
-  })
+  }]);
+  postQuery.then(posts => {
+    fetchedPosts = posts;
+  }).then(count => {
+    res.status(200).json({
+      message: "Posts Grouped successfully!",
+      posts: fetchedPosts
+    });
+  });
 };
 
 exports.getAllPosts = (req, res, next) => {
@@ -159,16 +147,4 @@ exports.getAllPosts = (req, res, next) => {
       fetchedPosts = documents;
       res.status(200).json(fetchedPosts);
     });
-    // .then(count => {
-    //   res.status(200).json({
-    //     message: "All Posts fetched successfully!",
-    //     posts: fetchedPosts,
-    //     maxPosts: count
-    //   });
-    // })
-    // .catch(error => {
-    //   res.status(500).json({
-    //     message: "Fetching Posts failed!"
-    //   });
-    // });
   }

@@ -82,12 +82,18 @@ export class HomeComponent implements OnInit , AfterContentInit , AfterContentCh
     {cityname: 'a' , lat : 31.804380 , lng : 34.655315 },
     {cityname: 'b' , lat : 32.016499 , lng : 34.750278 },
     {cityname: 'd' , lat : 31.028090 , lng : 35.361351 },
-    {cityname: 'e' , lat : 29.550360 , lng : 34.952278 }
+    {cityname: 'e' , lat : 29.550360 , lng : 34.952278 },
+    {cityname: 't' , lat : 32.085300 , lng : 34.781769 },
+    {cityname: 'n' , lat : 32.32095449078005 , lng : 34.85324768647013 }
   ];
 
 
   lastSearchChar: string;
   cityFirstChar: string;
+
+  data: any;
+show: boolean;
+
 
   latitude = 0;
   longtitude = 0;
@@ -107,18 +113,6 @@ export class HomeComponent implements OnInit , AfterContentInit , AfterContentCh
     // tslint:disable-next-line: member-ordering
     temp: CityCoordinates;
 
-    // setCitiesArray(cities: City[]) {
-    //   for (const city of cities) {
-    //     this.latitude = +city.lat;
-    //     this.longtitude = +city.lng;
-    //     this.temp = {cityname: city.city.charAt(0).toLowerCase() , lat : this.latitude , lng: this.longtitude};
-    //     // console.log('temp city = ' + this.temp.cityname);
-    //     this.coordinates.push(this.temp);
-    //     // console.log('coordinat = ' + this.coordinates.pop().cityname);
-    //   }
-    //   return true;
-    // }
-
   getWeatherData() {
     this.lastSearchChar = localStorage.getItem('lastSearchChar');
     for (const city of this.coordinates) {
@@ -137,22 +131,6 @@ export class HomeComponent implements OnInit , AfterContentInit , AfterContentCh
         .then(data => {this.setWeatherData(data); } );
     return true;
   }
-
-  // getWeatherDataByCity(cities: City[]) {
-  //   this.lastSearchChar = localStorage.getItem('lastSearchChar');
-  //   for (const city of this.cities) {
-  //     this.cityFirstChar = city.city.charAt(0).toLowerCase();
-  //     if (this.cityFirstChar === this.lastSearchChar) {
-  // tslint:disable-next-line: max-line-length
-  //       fetch('http://api.openweathermap.org/data/2.5/weather?lat=' + city.lat + '&lon=' + city.lng + '&appid=d42bddd01fb9b492a789c7897bec9409')
-  //       .then(response => response.json())
-  //       .then(data => {this.setWeatherData(data); } );
-  //       return true;
-  //     }
-  //   }
-  //   return true;
-  // }
-
 
   setWeatherData(data: any) {
     this.WeatherData = data;
@@ -202,6 +180,20 @@ export class HomeComponent implements OnInit , AfterContentInit , AfterContentCh
 
   ngAfterContentChecked(): void {
     this.setCitiesArray();
+  }
+
+// tslint:disable-next-line: align
+GroupByCity() {
+      this.postsService.getGroupBy().subscribe((d: any) => {
+      console.log('data = ' + d);
+      this.data = d;
+      if (this.data.length === 0) {
+        this.show = false;
+      } else {
+        this.show = true;
+      }
+      console.log('show = ' + this.show);
+    });
   }
 
   // Pie Functions
@@ -255,31 +247,3 @@ pieData(posts) {
     this.pieChartDataCity = [this.batyam, this.holon, this.rishon, this.telaviv];
   }
 }
-
-
-
-
-  // http://api.openweathermap.org/data/2.5/weather?lat=31.961020&lon=34.801620&appid=d42bddd01fb9b492a789c7897bec9409
-  // https://api.openweathermap.org/data/2.5/weather?q=mumbai&appid=ff1bc4683fc7325e9c57e586c20cc03e
-
-
-
-
-  // if (this.lastSearchChar === 'm') {
-  //   fetch('https://api.openweathermap.org/data/2.5/weather?q=mumbai&appid=ff1bc4683fc7325e9c57e586c20cc03e')
-  //   .then(response => response.json())
-  //   .then(data => {this.setWeatherData(data); } );
-  //   return true;
-  //   }
-  // if (localStorage.getItem('lastSearchChar') === 'r') {
-  //     fetch('http://api.openweathermap.org/data/2.5/weather?lat=31.961020&lon=34.801620&appid=d42bddd01fb9b492a789c7897bec9409')
-  //     .then(response => response.json())
-  //     .then(data => {this.setWeatherData(data); } );
-  //     return true;
-  //   }
-  // if (localStorage.getItem('lastSearchChar') === 'b') {
-  //     fetch('http://api.openweathermap.org/data/2.5/weather?lat=32.016499&lon=34.750278&appid=d42bddd01fb9b492a789c7897bec9409')
-  //     .then(response => response.json())
-  //     .then(data => {this.setWeatherData(data); } );
-  //     return true;
-  //   }

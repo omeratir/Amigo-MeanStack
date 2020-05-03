@@ -30,8 +30,6 @@ import { ChatComponent } from './chat/chat.component';
 import { AboutComponent } from './about/about.component';
 import { CitiesModule } from './city/cities.module';
 import { PiechartDirective } from './piechart.directive';
-import { GroupByComponent } from './groupby/groupby.component';
-
 
 @NgModule({
   declarations: [
@@ -43,8 +41,7 @@ import { GroupByComponent } from './groupby/groupby.component';
     ChatComponent,
     AboutComponent,
     PiechartDirective,
-    FooterComponent,
-    GroupByComponent
+    FooterComponent
   ],
   imports: [
     BrowserModule,

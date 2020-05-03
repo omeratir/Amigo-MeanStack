@@ -9,7 +9,6 @@ import { ChatComponent } from './chat/chat.component';
 import { AboutComponent } from './about/about.component';
 import { CityListComponent } from './city/city-list/city-list.component';
 import { CityCreateComponent } from './city/city-create/city-create.component';
-import { GroupByComponent } from './groupby/groupby.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent},
@@ -22,8 +21,7 @@ const routes: Routes = [
   { path: 'auth', loadChildren: './auth/auth.module#AuthModule'},
   { path: 'map', component: MapComponent},
   { path: 'chat', component: ChatComponent},
-  { path: 'aboutus', component: AboutComponent},
-  { path: 'groupby', component: GroupByComponent}
+  { path: 'aboutus', component: AboutComponent}
 ];
 
 @NgModule({
