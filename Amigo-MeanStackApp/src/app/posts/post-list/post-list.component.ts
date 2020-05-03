@@ -37,6 +37,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   userId: string;
   private postsSub: Subscription;
   private authStatusSub: Subscription;
+  userEmail: string;
 
   lastChar = '';
   flag = true;
@@ -82,6 +83,8 @@ export class PostListComponent implements OnInit, OnDestroy {
       .subscribe(isAuthenticated => {
         this.userIsAuthenticated = isAuthenticated;
         this.userId = this.authService.getUserId();
+        this.userEmail = localStorage.getItem('userEmail');
+        console.log('user email = ' + this.userEmail);
       });
   }
 

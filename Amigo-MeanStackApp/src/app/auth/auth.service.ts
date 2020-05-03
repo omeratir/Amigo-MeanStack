@@ -69,6 +69,7 @@ export class AuthService {
             this.isAuthenticated = true;
             this.userId = response.userId;
             this.lastSearch = response.lastSearch;
+            console.log('lastSearch = ' + this.lastSearch);
             this.authStatusListener.next(true);
             const now = new Date();
             const expirationDate = new Date(
@@ -105,7 +106,6 @@ export class AuthService {
     }
   }
 
-
   logout() {
     this.token = null;
     this.isAuthenticated = false;
@@ -136,8 +136,6 @@ export class AuthService {
     localStorage.removeItem('expiration');
     localStorage.removeItem('userId');
     localStorage.removeItem('userEmail');
-    localStorage.removeItem('lastSearch');
-    localStorage.removeItem('lastSearchChar');
   }
 
   private getAuthData() {

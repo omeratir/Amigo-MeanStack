@@ -8,7 +8,7 @@ exports.createUser = (req, res, next) => {
     const user = new User({
       email: req.body.email,
       password: hash,
-      lastSearch: null
+      lastSearch: 'r'
     });
     user
       .save()
@@ -45,7 +45,7 @@ exports.userLogin = (req, res, next) => {
         });
       }
       const token = jwt.sign(
-        { email: fetchedUser.email, userId: fetchedUser._id },
+        { email: fetchedUser.email, userId: fetchedUser._id , lastSearch: fetchedUser.lastSearch},
         process.env.JWT_KEY,
         { expiresIn: "1h" }
       );
@@ -53,7 +53,7 @@ exports.userLogin = (req, res, next) => {
         token: token,
         expiresIn: 3600,
         userId: fetchedUser._id,
-        userLastSearch: fetchedUser.lastSearch
+        lastSearch: fetchedUser.lastSearch
       });
     })
     .catch(err => {
@@ -61,5 +61,12 @@ exports.userLogin = (req, res, next) => {
         message: "Invalid authentication credentials!"
       });
     });
+}
+
+exports.userUpdate = (req, res, next) => {
+  User.findOneAndUpdate(
+    {email : req.body.email },
+    { $set: { "lastSearch" : req.body.lastSearch } }
+  );
 }
 
