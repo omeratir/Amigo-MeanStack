@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 
 import { environment } from '../../environments/environment';
 import { AuthData } from './auth-data.model';
+import { last } from 'rxjs/operators';
 
 const BACKEND_URL = environment.apiUrl + '/user/';
 
@@ -106,6 +107,14 @@ export class AuthService {
     }
   }
 
+  updateLastSearch(email: string , lastSearch: string) {
+    this.http
+      .put(BACKEND_URL + email, lastSearch)
+      .subscribe(response => {
+        this.router.navigate(['/home']);
+      });
+  }
+
   logout() {
     this.token = null;
     this.isAuthenticated = false;
@@ -113,7 +122,7 @@ export class AuthService {
     this.userId = null;
     clearTimeout(this.tokenTimer);
     this.clearAuthData();
-    this.router.navigate(['/']);
+    this.router.navigate(['/home']);
   }
 
   private setAuthTimer(duration: number) {
